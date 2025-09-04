@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Tickets - Empresa Agropecuaria</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --secondary: #7cb342;
+            --accent: #ffa000;
+            --light: #f1f8e9;
+            --dark: #1b5e20;
+            --gray: #ccc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filters {
+            margin-bottom: 30px;
+        }
+        
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .filter-options {
+            list-style: none;
+        }
+        
+        .filter-options li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        
+        .filter-options li:hover {
+            color: var(--primary);
+        }
+        
+        .filter-options li.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .stats {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: var(--dark);
+        }
+        
+        .ticket-list {
+            list-style: none;
+        }
+        
+        .ticket-item {
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .ticket-info {
+            flex: 1;
+        }
+        
+        .ticket-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .ticket-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+        
+        .ticket-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        .ticket-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-new {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .status-in-progress {
+            background: #fff8e1;
+            color: #f57c00;
+        }
+        
+        .status-resolved {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .priority-high {
+            color: #d32f2f;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sistema de Tickets de Soporte</h1>
+            <p class="subtitle">Empresa Agropecuaria - Gestión de incidencias y solicitudes</p>
+        </header>
+        
+        <div class="dashboard">
+            <div class="sidebar">
+                <div class="filters">
+                    <h3 class="filter-title">Filtrar por:</h3>
+                    <ul class="filter-options">
+                        <li class="active">Todos los tickets</li>
+                        <li>Abiertos</li>
+                        <li>En progreso</li>
+                        <li>Resueltos</li>
+                        <li>Críticos</li>
+                    </ul>
+                </div>
+                
+                <div class="filters">
+                    <h3 class="filter-title">Categorías:</h3>
+                    <ul class="filter-options">
+                        <li>Maquinaria</li>
+                        <li>Riego</li>
+                        <li>Fertilizantes</li>
+                        <li>Plagas</li>
+                        <li>Software</li>
+                        <li>Recursos Humanos</li>
+                    </ul>
+                </div>
+                
+                <div class="stats">
+                    <h3 class="filter-title">Estadísticas:</h3>
+                    <div class="stat-item">
+                        <span>Tickets abiertos:</span>
+                        <span>12</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>En progreso:</span>
+                        <span>8</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Resueltos (7 días):</span>
+                        <span>24</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Tiempo promedio:</span>
+                        <span>2.3 días</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="main-content">
+                <div class="ticket-header">
+                    <h2>Tickets Recientes</h2>
+                    <button class="btn">Nuevo Ticket</button>
+                </div>
+                
+                <ul class="ticket-list">
+                    <li class="ticket-item">
+                        <div class="ticket-info">
+                            <div class="ticket-title">Falla en sistema de riego del Lote 5B</div>
+                            <div class="ticket-desc">El sistema de riego automático no se activa según la programación establecida...</div>
+                            <div class="ticket-meta">
+                                <span>#AG-2023-0876</span>
+                                <span>Lote 5B - Soja</span>
+                                <span class="priority-high">Alta prioridad</span>
+                                <span>Hace 2 horas</span>
+                            </div>
+                        </div>
+                        <div class="ticket-status status-new">Nuevo</div>
+                    </li>
+                    
+                    <li class="ticket-item">
+                        <div class="ticket-info">
+                            <div class="ticket-title">Solicitud de mantenimiento preventivo tractor John Deere 6125M</div>
+                            <div class="ticket-desc">Próximo a alcanzar las 500 horas de uso, requiere mantenimiento programado...</div>
+                            <div class="ticket-meta">
+                                <span>#AG-2023-0875</span>
+                                <span>Maquinaria</span>
+                                <span>Media prioridad</span>
+                                <span>Hace 5 horas</span>
+                            </div>
+                        </div>
+                        <div class="ticket-status status-in-progress">En progreso</div>
+                    </li>
+                    
+                    <li class="ticket-item">
+                        <div class="ticket-info">
+                            <div class="ticket-title">Problema con software de monitoreo de cultivos</div>
+                            <div class="ticket-desc">No se están actualizando los datos de humedad de los sensores remotos...</div>
+                            <div class="ticket-meta">
+                                <span>#AG-2023-0874</span>
+                                <span>Software</span>
+                                <span>Alta prioridad</span>
+                                <span>Hace 1 día</span>
+                            </div>
+                        </div>
+                        <div class="ticket-status status-in-progress">En progreso</div>
+                    </li>
+                    
+                    <li class="ticket-item">
+                        <div class="ticket-info">
+                            <div class="ticket-title">Solicitud de capacitación para uso de nueva pulverizadora</div>
+                            <div class="ticket-desc">El personal de campo requiere capacitación en el uso de la nueva pulverizadora...</div>
+                            <div class="ticket-meta">
+                                <span>#AG-2023-0873</span>
+                                <span>Capacitación</span>
+                                <span>Baja prioridad</span>
+                                <span>Hace 2 días</span>
+                            </div>
+                        </div>
+                        <div class="ticket-status status-new">Nuevo</div>
+                    </li>
+                    
+                    <li class="ticket-item">
+                        <div class="ticket-info">
+                            <div class="ticket-title">Reabastecimiento de fertilizante nitrogenado</div>
+                            <div class="ticket-desc">Stock crítico de urea, necesario reabastecimiento para próxima aplicación...</div>
+                            <div class="ticket-meta">
+                                <span>#AG-2023-0872</span>
+                                <span>Insumos</span>
+                                <span class="priority-high">Alta prioridad</span>
+                                <span>Hace 2 días</span>
+                            </div>
+                        </div>
+                        <div class="ticket-status status-resolved">Resuelto</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulación de interacción con el sistema de tickets
+        document.querySelectorAll('.filter-options li').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.filter-options li').forEach(li => {
+                    li.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+        
+        document.querySelector('.btn').addEventListener('click', function() {
+            alert('Formulario de nuevo ticket abierto. Aquí se recogería la información del problema.');
+        });
+    </script>
+</body>
+</html>
